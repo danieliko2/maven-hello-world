@@ -8,13 +8,13 @@ on:
 
 jobs:
   CI:
+    runs-on: ubuntu-20.04
+    steps:
     - name: Connect to Repo
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
         token: ${{ github.token }}
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Run build script
-        run: ./versioning.sh
-        shell: bash
+    - name: Run build script
+      run: ./versioning.sh
+      shell: bash
