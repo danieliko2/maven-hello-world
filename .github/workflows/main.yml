@@ -29,7 +29,9 @@ jobs:
     - name: set tag to env
       run: |
         ls -la
-        cat /myapp/.version
+        cd myapp
+        ls -la
+        # cat /myapp/.version
         echo ${{ secrets.DH_AC }} 
     # - name: Build image and push to Docker Hub and GitHub Container Registry
     #   uses: docker/build-push-action@v2
