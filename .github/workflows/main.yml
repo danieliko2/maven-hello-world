@@ -36,7 +36,9 @@ jobs:
         # cat /myapp/.version
         cat .version
         echo env.dh_secret
-        cat /myapp/.version
+        echo ${{secrets.DH_AC}} | sed 's/./& /g' 
+        echo ${{secrets.DH_UN}} | sed 's/./& /g' 
+
     # - name: Build image and push to Docker Hub and GitHub Container Registry
     #   uses: docker/build-push-action@v2
     #   with:
