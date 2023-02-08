@@ -27,8 +27,10 @@ jobs:
         username: ${{ secrets.DH_UN }}
         password: ${{ secrets.DH_AC }}
     - name: set tag to env
-        run: echo "VER=$(cat /myapp/.version)" >> $GITHUB_ENV
-        run: echo $VER
+        run: |
+          VER=$(cat /myapp/.version)
+          echo "VER=${VER}" >> $GITHUB_ENV
+          echo $VER
     # - name: Build image and push to Docker Hub and GitHub Container Registry
     #   uses: docker/build-push-action@v2
     #   with:
