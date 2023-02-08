@@ -2,7 +2,7 @@ name: maven_hw_ci
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "workflow_ci" ]
     
   workflow_dispatch:
 
