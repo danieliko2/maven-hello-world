@@ -30,7 +30,7 @@ jobs:
       run: |
         ls -la
         cat /myapp/.version
-        echo ${{ secrets.DH_AC }}
+        echo ${{ secrets.DH_AC }} 
     # - name: Build image and push to Docker Hub and GitHub Container Registry
     #   uses: docker/build-push-action@v2
     #   with:
