@@ -35,7 +35,8 @@ jobs:
         ls -la
         # cat /myapp/.version
         cat .version
-        echo $dh_secret
+        echo env.dh_secret
+        cat /myapp/.version
     # - name: Build image and push to Docker Hub and GitHub Container Registry
     #   uses: docker/build-push-action@v2
     #   with:
