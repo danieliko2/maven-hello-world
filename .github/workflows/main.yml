@@ -27,8 +27,9 @@ jobs:
         username: ${{ secrets.DH_UN }}
         password: ${{ secrets.DH_AC }}
     - name: set tag to env
-        run: |
-          cat /myapp/.version
+      run: |
+        ls -la
+        cat /myapp/.version
     # - name: Build image and push to Docker Hub and GitHub Container Registry
     #   uses: docker/build-push-action@v2
     #   with:
