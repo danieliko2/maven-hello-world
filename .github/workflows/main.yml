@@ -48,7 +48,7 @@ jobs:
         context: .
         push: true
         build-args: VERSION=${{ env.VERSION }}
-        tags: {{ env.TAG }}
+        tags: ${{ env.TAG }}
 
 
     - name: Run the image
