@@ -15,12 +15,22 @@ jobs:
     - name: Connect to Repo
       uses: actions/checkout@v3
 
-    - name: Run version script
-      run: |
-        VERSION=${{ env.POM_VERSION }}
-        echo $VERSION
-        NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
-        echo $NEXTVERSION
+
+    - name: Bump Version
+      id: bump
+      uses: nnichols/maven-version-bump-action@v3
+      with:
+        github-token: ${{ secrets.github_token }}
+
+    - name: Print Version
+      run: "echo 'New Version: ${{steps.bump.outputs.version}}'"
+      
+    # - name: Run version script
+    #   run: |
+    #     VERSION=${{ env.POM_VERSION }}
+    #     echo $VERSION
+    #     NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+    #     echo $NEXTVERSION
 
       # ${{ env.POM_VERSION=${NEXTVERSION} }
       # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
