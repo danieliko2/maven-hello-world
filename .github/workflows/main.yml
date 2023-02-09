@@ -32,14 +32,10 @@ jobs:
         password: ${{ secrets.DH_AC }}
 
     - name: set tag to env
-      env:
-        dh_secret: ${{ secrets.DH_AC }}
       run: |
         cd myapp
         VER="danieliko/maven-hw-testings:$(cat .version)"
         echo "VER=${VER}" >> $GITHUB_ENV
-        echo env.dh_secret
-        echo $dh_secret
 
     - name: Build dockerflie
       run:
@@ -55,6 +51,7 @@ jobs:
 
     - name: run dockerfile
       run: |
+        docker image ls
         docker run ${{ env.VER }}
 
     - name: check images
