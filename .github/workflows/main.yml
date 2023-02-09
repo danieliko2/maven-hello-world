@@ -56,3 +56,7 @@ jobs:
     - name: run dockerfile
       run: |
         docker run ${{ env.VER }}
+
+    - name: check images
+      run: |
+        docker image ls
