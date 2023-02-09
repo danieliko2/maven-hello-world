@@ -18,7 +18,8 @@ jobs:
     - name: Run version script
       run: |
         VERSION=${{ env.POM_VERSION }}
-        # NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+        echo $VERSION
+        NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
         echo $NEXTVERSION
 
       # ${{ env.POM_VERSION=${NEXTVERSION} }
