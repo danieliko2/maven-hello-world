@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  CI:
+  CI: 
     runs-on: ubuntu-20.04
     environment: dh_u
     steps:
