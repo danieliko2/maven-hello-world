@@ -19,7 +19,7 @@ jobs:
       run: |
         VERSION=${{ env.POM_VERSION }}
         NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
-        ${{ env.POM_VERSION=$NEXTVERSION}}
+        ${{ env.POM_VERSION=${NEXTVERSION} }
         TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
         echo "TAG=${TAG}" >> $GITHUB_ENV
 
