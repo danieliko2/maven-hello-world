@@ -16,6 +16,7 @@ jobs:
       uses: actions/checkout@v3
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     - name: Bump Version
       id: bump
@@ -81,6 +82,15 @@ jobs:
         TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
         echo "TAG=${TAG}" >> $GITHUB_ENV
 
+=======
+    - name: Run build script
+      run: |
+        VERSION=$(./versioning.sh)
+        echo "VERSION=${VERSION}" >> $GITHUB_ENV
+        TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
+        echo "TAG=${TAG}" >> $GITHUB_ENV
+
+>>>>>>> parent of c36e93b... trying out another way to version
     - name: Set up Docker Buildx # Enable using docker on pipeline
       id: buildx
       uses: docker/setup-buildx-action@v2
