@@ -15,12 +15,26 @@ jobs:
     - name: Connect to Repo
       uses: actions/checkout@v3
 
-    - name: Run build script
+    - name: Run version script
       run: |
-        VERSION=$(./versioning.sh)
-        echo "VERSION=${VERSION}" >> $GITHUB_ENV
-        TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
+        VERSION=${{ env.POM_VERSION }}
+        NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+        ${{ env.POM_VERSION=$NEXTVERSION}}
+        TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
         echo "TAG=${TAG}" >> $GITHUB_ENV
+
+        # VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/maven-hw-testings/tags/ | jq '.results[0].name') # get the latest version from my repository
+        # VERSION=$(python3 -c " 
+        # VERSION=$VERSION.replace('\"', '') 
+        # print(VERSION) ") # use python to remove double quotes from version
+        # NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+        # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
+        # echo "TAG=${TAG}" >> $GITHUB_ENV
+
+        # VERSION=$(./versioning.sh)
+        # echo "VERSION=${VERSION}" >> $GITHUB_ENV
+        # TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
+        # echo "TAG=${TAG}" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx # Enable using docker on pipeline
       id: buildx
@@ -32,16 +46,6 @@ jobs:
         username: ${{ secrets.DH_UN }}
         password: ${{ secrets.DH_AC }}
 
-    # - name: set tag to env
-    #   run: |
-    #     cd myapp
-    #     VER="danieliko/maven-hw-testings:$(cat .version)"
-    #     echo "VER=${VER}" >> $GITHUB_ENV
-
-    # - name: Build dockerflie
-    #   run:
-    #     echo $VER
-
     - name: Build image and push to DockerHub
       uses: docker/build-push-action@v2
       with:
@@ -49,7 +53,6 @@ jobs:
         push: true
         build-args: VERSION=${{ env.VERSION }}
         tags: ${{ env.TAG }}
-
 
     - name: Run the image
       run: |
