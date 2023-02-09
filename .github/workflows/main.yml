@@ -50,6 +50,9 @@ jobs:
         push: true
         tags:
           ${{ env.VER }}
-    - name: Clean docker
-      run:
-        docker images ls
+    # - name: Clean docker
+    #   run:
+    #     docker images ls
+    - name: run dockerfile
+      run: |
+        docker run ${{ env.VER }}
