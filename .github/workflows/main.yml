@@ -53,4 +53,4 @@ jobs:
 
     - name: Run the image
       run: |
-        docker run ${{ env.TAGNAME }}
+        docker run ${{ env.TAG }}
