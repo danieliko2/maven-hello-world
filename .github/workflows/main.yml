@@ -36,7 +36,7 @@ jobs:
         ls -la
         # cat /myapp/.version
         cat .version
-        VER="$(cat .version)"
+        VER="danieliko/maven-hw-testings:$(cat .version)"
         echo "VER=${VER}" >> $GITHUB_ENV
 
         echo env.dh_secret
