@@ -19,9 +19,11 @@ jobs:
       run: |
         VERSION=${{ env.POM_VERSION }}
         NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
-        ${{ env.POM_VERSION=${NEXTVERSION} }
-        TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
-        echo "TAG=${TAG}" >> $GITHUB_ENV
+        echo $NEXTVERSION
+        
+        # ${{ env.POM_VERSION=${NEXTVERSION} }
+        # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
+        # echo "TAG=${TAG}" >> $GITHUB_ENV
 
         # VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/maven-hw-testings/tags/ | jq '.results[0].name') # get the latest version from my repository
         # VERSION=$(python3 -c " 
