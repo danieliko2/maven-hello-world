@@ -52,4 +52,4 @@ jobs:
 
     - name: Run the image
       run: |
-        docker run ${{ env.VER }}
+        docker run ${{ env.VER }} 
