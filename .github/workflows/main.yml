@@ -14,9 +14,6 @@ jobs:
 
     - name: Connect to Repo
       uses: actions/checkout@v3
-      # with:
-      #   fetch-depth: 0  
-      #   token: ${{ github.token }}
 
     - name: Run build script
       run: ./versioning.sh
@@ -41,7 +38,7 @@ jobs:
       run:
         echo $VER
 
-    - name: Build image and push to Docker Hub and GitHub Container Registry
+    - name: Build image and push to DockerHub
       uses: docker/build-push-action@v2
       with:
         context: .
@@ -49,11 +46,8 @@ jobs:
         tags:
           ${{ env.VER }}
 
-    - name: run dockerfile
+    - name: Run the image
       run: |
-        docker image ls
         docker run ${{ env.VER }}
 
     - name: check images
-      run: |
-        docker image ls
