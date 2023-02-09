@@ -43,14 +43,13 @@ jobs:
     #     echo $VER
 
     - name: Build image and push to DockerHub
-      env:
-        VERSION: $ {{ env.VERSION }}
       uses: docker/build-push-action@v2
       with:
         context: .
         push: true
-        tags:
-          ${{ env.TAG }}
+        build-args:
+          VERSION: ${{ env.VERSION }}
+
 
     - name: Run the image
       run: |
