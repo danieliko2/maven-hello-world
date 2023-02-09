@@ -21,22 +21,22 @@ jobs:
         # NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
         echo $NEXTVERSION
 
-        # ${{ env.POM_VERSION=${NEXTVERSION} }
-        # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
-        # echo "TAG=${TAG}" >> $GITHUB_ENV
+      # ${{ env.POM_VERSION=${NEXTVERSION} }
+      # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
+      # echo "TAG=${TAG}" >> $GITHUB_ENV
 
-        # VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/maven-hw-testings/tags/ | jq '.results[0].name') # get the latest version from my repository
-        # VERSION=$(python3 -c " 
-        # VERSION=$VERSION.replace('\"', '') 
-        # print(VERSION) ") # use python to remove double quotes from version
-        # NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
-        # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
-        # echo "TAG=${TAG}" >> $GITHUB_ENV
+      # VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/maven-hw-testings/tags/ | jq '.results[0].name') # get the latest version from my repository
+      # VERSION=$(python3 -c " 
+      # VERSION=$VERSION.replace('\"', '') 
+      # print(VERSION) ") # use python to remove double quotes from version
+      # NEXTVERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+      # TAG="danieliko/maven-hw-testings:$(echo $NEXTVERSION)"
+      # echo "TAG=${TAG}" >> $GITHUB_ENV
 
-        # VERSION=$(./versioning.sh)
-        # echo "VERSION=${VERSION}" >> $GITHUB_ENV
-        # TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
-        # echo "TAG=${TAG}" >> $GITHUB_ENV
+      # VERSION=$(./versioning.sh)
+      # echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      # TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
+      # echo "TAG=${TAG}" >> $GITHUB_ENV
 
     # - name: Set up Docker Buildx # Enable using docker on pipeline
     #   id: buildx
