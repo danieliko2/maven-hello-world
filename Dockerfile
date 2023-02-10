@@ -1,22 +1,29 @@
 FROM maven:3.8.7-openjdk-18-slim as BUILDER
 
-# create group and user
-
 WORKDIR /app
 
-# set ownership and permissions 
+ENV MAVEN_CONFIG=/app
 
 # copy directory to container
 COPY /myapp/ .
 
+# create group and user
+RUN groupadd -r appuser && appuser -g appuser appuser
+
+# set ownership and permissions 
+RUN chown -R appuser:appuser /app
+
+USER myapp
 
 
 ARG VERSION=1.0.0
 
-RUN mvn versions:set -DnewVersion=${VERSION}
-RUN mvn verify
+RUN mvn -Duser.home=. versions:set -DnewVersion=${VERSION}
+RUN mvn -Duser.home=. verify
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
 COPY --from=BUILDER /app/target/myapp* .
+RUN adduser -D appuser
+USER appuser
 CMD java -jar myapp*

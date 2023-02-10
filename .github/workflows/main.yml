@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  CI: 
+  maven_hw: 
     runs-on: ubuntu-20.04
     environment: dh_u
     steps:
@@ -60,5 +60,6 @@ jobs:
 
 
     - name: Run the image
+      options: --user 1000
       run: |
         docker run ${{ env.TAG }}
