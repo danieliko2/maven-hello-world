@@ -18,18 +18,18 @@ jobs:
     - name: Run build script
       run: |
         VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/maven-hw-testings/tags/ | jq '.results[0].name')
-        VERSION=$(python3 -c " 
-        VERSION=$VERSION.replace('\"', '') 
-        print(VERSION) ") # use python to remove double quotes from version
-        # echo $VERSION
-        VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
+    #   VERSION=$(python3 -c " 
+    #   VERSION=$VERSION.replace('\"', '') 
+    #   print(VERSION) ") # use python to remove double quotes from version
+    #   # echo $VERSION
+    #   VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')
 
-      #VERSION=$(./versioning.sh)
-       
-        echo "VERSION=${VERSION}" >> $GITHUB_ENV
-        TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
-        echo "TAG=${TAG}" >> $GITHUB_ENV
-        whoami
+    # #VERSION=$(./versioning.sh)
+      
+    #   echo "VERSION=${VERSION}" >> $GITHUB_ENV
+    #   TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
+    #   echo "TAG=${TAG}" >> $GITHUB_ENV
+    #   whoami
 
     - name: Set up Docker Buildx # Enable using docker on pipeline
       id: buildx
