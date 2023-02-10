@@ -30,7 +30,7 @@ jobs:
       # echo "VERSION=${VERSION}" >> $GITHUB_ENV
       # TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
       # echo "TAG=${TAG}" >> $GITHUB_ENV
-        whoami
+        # whoami
 
     - name: Set up Docker Buildx # Enable using docker on pipeline
       id: buildx
