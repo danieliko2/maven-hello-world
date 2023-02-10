@@ -1,8 +1,18 @@
 FROM maven:3.8.7-openjdk-18-slim as BUILDER
+
+# create group and user
+
 WORKDIR /app
+
+# set ownership and permissions 
+
+# copy directory to container
 COPY /myapp/ .
-ARG VERSION=1.0.0-NO_VER
-RUN echo VERSION
+
+
+
+ARG VERSION=1.0.0
+
 RUN mvn versions:set -DnewVersion=${VERSION}
 RUN mvn verify
 
