@@ -18,7 +18,7 @@ jobs:
     - name: Versioning stage
       run: |
         # get last version from Dockerhub
-        VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/${{ VARS.DH_REPO }}/tags/ | jq '.results[0].name')
+        VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/${{ VARS.DH_REPO }}/tags/ | jq '.results[0].name')
 
         echo $VERSION
     #     # use python to remove double quotes from version
