@@ -3,7 +3,7 @@ name: maven_hw_ci
 on:
   workflow_dispatch:
   push:
-    branches: [ "workflow_ci" ]
+    branches: [ "master" ]
 
 jobs:
   maven_hw: 
