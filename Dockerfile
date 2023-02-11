@@ -1,11 +1,8 @@
 FROM maven:3.8.7-openjdk-18-slim as BUILDER
 
-
-
-
 WORKDIR /app
 
-ENV MAVEN_CONFIG=/app
+# ENV MAVEN_CONFIG=/app
 
 # copy directory to container
 COPY /myapp/ .
