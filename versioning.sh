@@ -8,9 +8,18 @@
 # export NEXTVERSION="$NEXTVERSION"
 
 # echo "$NEXTVERSION"
-VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/mavean-hw-testings/tags/ | jq '.results[0].name')
+# get last version from Dockerhub
+VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/danieliko/maven-hw-testings/tags/ | jq '.results[0].name') || VERSION=1.0.0
+
+echo $VERSION
+# if it's first build, set version to 1.0.0 (after incrementing by 0.0.1)
 if [[ "$VERSION" == null ]]; then
-    echo "YAY"
-    VERSION="1.0.0"
+    VERSION=1.0.-1
+else
+    # VERSION=1.023
+VERSION=$(python3 -c " 
+VERSION=$VERSION.replace('\"', '') 
+print(VERSION) ")
 fi
+
 echo $VERSION

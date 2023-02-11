@@ -1,10 +1,11 @@
 name: maven_hw_ci
 
 on:
-  push:
-    branches: [ "workflow_ci" ]
-
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+  push:
+    branches: [ "master", workflow_ci"]
 
 jobs:
   maven_hw: 
@@ -18,24 +19,24 @@ jobs:
     - name: Versioning stage
       run: |
         # get last version from Dockerhub
-        VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/${{ VARS.DH_REPO }}/tags/ | jq '.results[0].name') || VERSION=1.0.0
+        VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/${{ VARS.DH_REPO }}/tags/ | jq '.results[0].name')
 
-        # if it's first build, set version to 1.0.0
+        # if it's first build, set version to 1.0.0 (after incrementing by 0.0.1)
         if [[ "$VERSION" == null ]]; then
-            VERSION=1.0.0
-        fi
-
+            VERSION=1.0.-1
+        else
         # use python to remove double quotes from version
         VERSION=$(python3 -c " 
         VERSION=$VERSION.replace('\"', '') 
         print(VERSION) ")
+        fi
 
         # increment by 0.0.1
         VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')       
         
         # export to github env and create a tag for Docker image
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
-        TAG="danieliko/maven-hw-testings:$(echo $VERSION)"
+        TAG="${{ VARS.DH_REPO }}:${VERSION}"
         echo "TAG=${TAG}" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx # Enable using docker on pipeline
