@@ -1,11 +1,9 @@
 name: maven_hw_ci
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
   push:
-    branches: [ workflow_ci" ]
+    branches: [ "workflow_ci" ]
 
 jobs:
   maven_hw: 
