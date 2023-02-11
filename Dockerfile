@@ -1,5 +1,8 @@
 FROM maven:3.8.7-openjdk-18-slim as BUILDER
 
+
+
+
 WORKDIR /app
 
 ENV MAVEN_CONFIG=/app
@@ -8,12 +11,12 @@ ENV MAVEN_CONFIG=/app
 COPY /myapp/ .
 
 # create group and user
-RUN groupadd -r appuser && appuser -g appuser appuser
+RUN groupadd -r appuser && useradd -g appuser appuser
 
 # set ownership and permissions 
 RUN chown -R appuser:appuser /app
 
-USER myapp
+USER appuser
 
 
 ARG VERSION=1.0.0
