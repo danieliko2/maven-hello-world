@@ -14,6 +14,9 @@ Increments the artifact version by 0.0.1 (in the pom.xml file).
 Compiles the source code and packages it to a JAR artifact, using a Maven Docker image. The app is ran in a JRE based image.
 Uploads the image to a Dockerhub repository.
 Downloads and runs the Docker image.
+A project design can be viewed here:
+https://drive.google.com/file/d/1bVRJXUwEymFnREgCRiZTiIUxgw9fxEoX/
+
 
 -- Docker --
 I used 2 base Docker images, inside a multistage Dockerfile:
