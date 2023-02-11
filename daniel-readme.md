@@ -1,147 +1,50 @@
-# A simple, minimal Maven example: hello world
+# Home Exercise - Daniel Kohav
 
-To create the files in this git repo we've already run `mvn archetype:generate` from http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
-    
-    mvn archetype:generate -DgroupId=com.myapp.app -DartifactId=myapp -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+# ABOUT
+This project is based on a fork of the following git repository:
+https://github.com/ido83/maven-hello-world
 
-Now, to print "Hello World!", type either...
+The source code was edited in 2 places:
+pom.xml (version > 1.0.0)
+App.java (Hello World, Daniel Kohav)
 
-    cd myapp
-    mvn compile
-    java -cp target/classes com.myapp.app.App
+-- General --
+It implements a pipeline in GitHub Actions that on each run:
+Increments the artifact version by 0.0.1 (in the pom.xml file).
+Compiles the source code and packages it to a JAR artifact, using a Maven Docker image. The app is ran in a JRE based image.
+Uploads the image to a Dockerhub repository.
+Downloads and runs the Docker image.
 
-or...
+-- Docker --
+I used 2 base Docker images, inside a multistage Dockerfile:
+maven:3.8.7-openjdk-18-slim - for building the code.
+openjdk:8-jre-alpine - for running the Artifact.
 
-    cd myapp
-    mvn package
-    java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.app.App
+All the commands are ran using a non-root user.
 
-Running `mvn clean` will get us back to only the source Java and the `pom.xml`:
-
-    murphy:myapp pdurbin$ mvn clean --quiet
-    murphy:myapp pdurbin$ ack -a -f
-    pom.xml
-    src/main/java/com/myapp/app/App.java
-    src/test/java/com/myapp/app/AppTest.java
-
-Running `mvn compile` produces a class file:
-
-    murphy:myapp pdurbin$ mvn compile --quiet
-    murphy:myapp pdurbin$ ack -a -f
-    pom.xml
-    src/main/java/com/myapp/app/App.java
-    src/test/java/com/myapp/app/AppTest.java
-    target/classes/com/myapp/app/App.class
-    murphy:myapp pdurbin$ 
-    murphy:myapp pdurbin$ java -cp target/classes com.myapp.app.App
-    Hello World!
-
-Running `mvn package` does a compile and creates the target directory, including a jar:
-
-    murphy:myapp pdurbin$ mvn clean --quiet
-    murphy:myapp pdurbin$ mvn package > /dev/null
-    murphy:myapp pdurbin$ ack -a -f
-    pom.xml
-    src/main/java/com/myapp/app/App.java
-    src/test/java/com/myapp/app/AppTest.java
-    target/classes/com/myapp/app/App.class
-    target/maven-archiver/pom.properties
-    target/myapp-1.0-SNAPSHOT.jar
-    target/surefire-reports/com.myapp.app.AppTest.txt
-    target/surefire-reports/TEST-com.myapp.app.AppTest.xml
-    target/test-classes/com/myapp/app/AppTest.class
-    murphy:myapp pdurbin$ 
-    murphy:myapp pdurbin$ java -cp target/myapp-1.0-SNAPSHOT.jar com.myapp.app.App
-    Hello World!
-
-Running `mvn clean compile exec:java` requires http://mojo.codehaus.org/exec-maven-plugin/
-
-Running `java -jar target/myapp-1.0-SNAPSHOT.jar` requires http://maven.apache.org/plugins/maven-shade-plugin/
-
-# Runnable Jar:
-JAR Plugin
-The Maven’s jar plugin will create jar file and we need to define the main class that will get executed when we run the jar file.
-```
-<plugin>
-  <artifactId>maven-jar-plugin</artifactId>
-  <version>3.0.2</version>
-  <configuration>
-    <archive>
-      <manifest>
-        <addClasspath>true</addClasspath>
-        <mainClass>com.myapp.App</mainClass>
-      </manifest>
-    </archive>
-  </configuration>
-</plugin>
-```
+-- GitHub Actions --
+A single Job, with multiple stages:
+Connect to repo - get the last commit to runner's working directory.
+Versioning stage - Get the last version from Dockerhub and increment by 0.0.1. If image does not exist (empty repo) set version to 1.0.0.
+Set up Docker Buildx - For using Docker on runner.
+Login to DockerHub - Self explanatory.
+Build image and push to DockerHub - Build the image, upload it to Dockerhub with the new version.
+Run the image - Download the image from Dockerhub and run it.
 
 
-# Folder tree before package:
-```
-├── pom.xml
-└── src
-    ├── main
-    │   └── java
-    │       └── com
-    │           └── myapp
-    │               └── app
-    │                   └── App.java
-    └── test
-        └── java
-            └── com
-                └── myapp
-                    └── app
-                        └── AppTest.java
+# USAGE
+Open a new public container repository on DockerHub.
+Create an access key with read/write permissions on Dockerhub. Save it, we will use it later.
+Fork the git repository: https://github.com/danieliko2/maven-hello-world
+Create an environment named 'hw_env' for the project (Settings >> Environments >> New environment).
+Create 2 environment secrets:
+DH_UN - your Dockerhub Username.
+DH_AT - The access key we just generated.
+and 1 environment variable:
+DH_REPO - the name of the Dockerhub repository (example: my_user/maven_hw_repo).
 
-```
-# Folder tree after package:
-```
+If an image does not exist in the repository, after a successful run, a 1.0.0 tagged image will be uploaded to the Dockerhub repository.
+On  each next successful run, the tag will increment by 0.0.1.
 
-.
-├── pom.xml
-├── src
-│   ├── main
-│   │   └── java
-│   │       └── com
-│   │           └── myapp
-│   │               └── app
-│   │                   └── App.java
-│   └── test
-│       └── java
-│           └── com
-│               └── myapp
-│                   └── app
-│                       └── AppTest.java
-└── target
-    ├── classes
-    │   └── com
-    │       └── myapp
-    │           └── app
-    │               └── App.class
-    ├── generated-sources
-    │   └── annotations
-    ├── generated-test-sources
-    │   └── test-annotations
-    ├── maven-archiver
-    │   └── pom.properties
-    ├── maven-status
-    │   └── maven-compiler-plugin
-    │       ├── compile
-    │       │   └── default-compile
-    │       │       ├── createdFiles.lst
-    │       │       └── inputFiles.lst
-    │       └── testCompile
-    │           └── default-testCompile
-    │               ├── createdFiles.lst
-    │               └── inputFiles.lst
-    ├── myapp-1.0-SNAPSHOT.jar
-    ├── surefire-reports
-    │   ├── com.myapp.app.AppTest.txt
-    │   └── TEST-com.myapp.app.AppTest.xml
-    └── test-classes
-        └── com
-            └── myapp
-                └── app
-                    └── AppTest.class
-```
+# EXTRAS
+I recommend reading the Journal (journal.docx), describing Bibok the Alien's adventure on Earth.
