@@ -41,12 +41,16 @@ Open a new public container repository on DockerHub.
 Create an access key with read/write permissions on Dockerhub. Save it, we will use it later.  
 Fork the git repository: https://github.com/danieliko2/maven-hello-world  
 Create an environment named 'hw_env' for the project (Settings >> Environments >> New environment).  
-Create 2 environment secrets:  
+Create 2 environment secrets:
+```
 DH_UN - Your Dockerhub Username.  
 DH_AT - The access key we just generated.  
+```
 and 1 environment variable:  
+```
 DH_REPO - The name of the Dockerhub repository (example: my_user/maven_hw_repo).  
-  
+```
+
 If an image does not exist in the repository, after a successful run, a 1.0.0 tagged image will be uploaded to the Dockerhub repository.  
 On  each next successful run, the tag will increment by 0.0.1.  
   
