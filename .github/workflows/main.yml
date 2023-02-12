@@ -27,7 +27,7 @@ jobs:
         VERSION=$(python3 -c " 
         VERSION=$VERSION.replace('\"', '') 
         print(VERSION) ")
-
+        
         fi
 
         # increment by 0.0.1
