@@ -3,7 +3,7 @@ name: maven_hw_ci
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "workflow_ci"]
 
 jobs:
   maven_hw: 
@@ -22,14 +22,12 @@ jobs:
         if [[ "$VERSION" == null ]]; then
           VERSION=1.0.-1
         else
-
         # use python to remove double quotes from version
         VERSION=$(python3 -c " 
         VERSION=$VERSION.replace('\"', '') 
         print(VERSION) ")
         
         fi
-
         # increment by 0.0.1
         VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF += 1 ; print}')       
         
@@ -38,9 +36,6 @@ jobs:
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
         echo "TAG=${TAG}" >> $GITHUB_ENV
 
-    - name: Set up Docker Buildx # Enable using docker on pipeline
-      id: buildx
-      uses: docker/setup-buildx-action@v2
 
     - name: Login to DockerHub
       uses: docker/login-action@v2
@@ -48,17 +43,17 @@ jobs:
         username: ${{ secrets.DH_UN }}
         password: ${{ secrets.DH_AT }}
 
-    - name: Build image and push to DockerHub
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        build-args: VERSION=${{ env.VERSION }}
-        tags: ${{ env.TAG }}
+    - name: Build image
+      run: docker build -t ${{ env.TAG }} --build-arg VERSION=${{ env.VERSION }} .
+    
+    - name: Upload to dockerhub
+      run: docker push ${{ env.TAG }}
 
-
-    - name: Run the image # Run image as non root user
-      run: |
-        sudo adduser --disabled-password --gecos "" myuser
-        sudo su myuser
-        docker run ${{ env.TAG }}
+jobs:
+  run_mvn_hw: 
+    runs-on: ubuntu-20.04
+    needs: [maven_hw]
+    environment: hw_env
+    steps:
+    - name: Run the image
+      run: docker run ${{ env.TAG }}
