@@ -56,12 +56,4 @@ jobs:
     - name: Run the image
       env:
         USER_ID: 1000
-      run: |
-        # # Create a non-root user
-        # sudo useradd -u $USER_ID -m user
-        # # Set the environment to the non-root user
-        # env USER=user
-        # # Set the current user as the non-root user
-        # su user
-        # # Run the action as the non-root user
-        docker run ${{ env.TAG }}
+      run: docker run ${{ env.TAG }}
