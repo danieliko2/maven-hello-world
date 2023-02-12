@@ -27,13 +27,16 @@ All the commands are ran using a non-root user.
   
   
 -- GitHub Actions --  
-A single Job, with multiple stages:  
+2 jobs:
+1:  
 Connect to repo - Get the last commit to runner's working directory.  
 Versioning stage - Get the last version from Dockerhub and increment by 0.0.1. If image does not exist (empty repo) set version to 1.0.0.  
 Login to DockerHub - Self explanatory.  
 Build image - Build image with tag and build argument.  
 Upload to dockerhub - Upload the image with updated tag to dockerhub.  
-Run the image - Download the image from Dockerhub and run it as a non root user.
+
+2:  
+Run the image - Download the image from Dockerhub and run it.
   
   
 # USAGE  

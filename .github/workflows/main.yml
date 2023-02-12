@@ -9,6 +9,8 @@ jobs:
   maven_hw: 
     runs-on: ubuntu-20.04
     environment: hw_env
+    outputs:
+
     steps:
 
     - name: Connect to Repo # Fetches the last commit from Github
@@ -35,7 +37,7 @@ jobs:
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
         echo "TAG=${TAG}" >> $GITHUB_ENV
-      outputs:
+      env:
         TAG: ${{ env.TAG }}
 
     - name: Login to DockerHub
@@ -57,4 +59,4 @@ jobs:
     environment: hw_env
     steps:
     - name: Run the image
-      run: docker run ${{ needs.maven_hw.outputs.TAG }}
+      run: docker run $TAG
