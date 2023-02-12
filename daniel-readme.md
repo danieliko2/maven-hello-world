@@ -18,7 +18,7 @@ A project design can be viewed here:
 https://drive.google.com/file/d/1bVRJXUwEymFnREgCRiZTiIUxgw9fxEoX/
 
 
--- Docker --
+-- Dockerfile --
 I used 2 base Docker images, inside a multistage Dockerfile:
 maven:3.8.7-openjdk-18-slim - for building the code.
 openjdk:8-jre-alpine - for running the Artifact.
