@@ -18,6 +18,6 @@ RUN mvn -Duser.home=. verify
 FROM openjdk:8-jre-alpine
 WORKDIR /app
 COPY --from=BUILDER /app/target/myapp* .
-RUN adduser -D appuser
+RUN adduser appuser
 USER appuser
 CMD java -jar myapp*
