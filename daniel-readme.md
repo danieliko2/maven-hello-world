@@ -27,24 +27,24 @@ All the commands are ran using a non-root user.
 
 -- GitHub Actions --
 A single Job, with multiple stages:
-Connect to repo - get the last commit to runner's working directory.
+Login to DockerHub - For pushing image and fetching version in case it's a private repository.
+Connect to repo - Get the last commit to runner's working directory.
 Versioning stage - Get the last version from Dockerhub and increment by 0.0.1. If image does not exist (empty repo) set version to 1.0.0.
 Set up Docker Buildx - For using Docker on runner.
-Login to DockerHub - Self explanatory.
 Build image and push to DockerHub - Build the image, upload it to Dockerhub with the new version.
 Run the image - Download the image from Dockerhub and run it.
 
 
 # USAGE
-Open a new public container repository on DockerHub.
+Open a new (private or public) container repository on DockerHub.
 Create an access key with read/write permissions on Dockerhub. Save it, we will use it later.
 Fork the git repository: https://github.com/danieliko2/maven-hello-world
 Create an environment named 'hw_env' for the project (Settings >> Environments >> New environment).
 Create 2 environment secrets:
-DH_UN - your Dockerhub Username.
+DH_UN - Your Dockerhub Username.
 DH_AT - The access key we just generated.
 and 1 environment variable:
-DH_REPO - the name of the Dockerhub repository (example: my_user/maven_hw_repo).
+DH_REPO - The name of the Dockerhub repository (example: my_user/maven_hw_repo).
 
 If an image does not exist in the repository, after a successful run, a 1.0.0 tagged image will be uploaded to the Dockerhub repository.
 On  each next successful run, the tag will increment by 0.0.1.
