@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     environment: hw_env
     outputs:
-      TAG: ${{ steps.versioning.outputs.TAG }}
+      TAG_V: ${{ steps.versioning.outputs.TAG_V }}
     steps:
     - name: Connect to Repo # Fetches the last commit from Github
       uses: actions/checkout@v3
