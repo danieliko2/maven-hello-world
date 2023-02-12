@@ -16,6 +16,7 @@ jobs:
 
     - name: Versioning stage
       run: |
+        docker images
         # get last version from Dockerhub
         VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/${{ VARS.DH_REPO }}/tags/ | jq '.results[0].name')
         # if it's first build, set version to 1.0.0 (after incrementing by 0.0.1)
@@ -48,10 +49,12 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        push: true
+        # push: true
         build-args: VERSION=${{ env.VERSION }}
         tags: ${{ env.TAG }}
 
 
     - name: Run the image
-      run: docker run ${{ env.TAG }}
+      run: |
+        docker images
+        docker run ${{ env.TAG }}
