@@ -49,12 +49,13 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        # push: true
+        push: true
         build-args: VERSION=${{ env.VERSION }}
         tags: ${{ env.TAG }}
 
 
     - name: Run the image
       run: |
-        docker images
+        sudo adduser --disabled-password --gecos "" myuser
+        su myuser
         docker run ${{ env.TAG }}
