@@ -16,8 +16,8 @@ jobs:
 
     - name: Versioning stage
       run: |
-        docker images
         # get last version from Dockerhub
+        echo ${{ VARS.DH_REPO }}
         VERSION=$(curl -s https://registry.hub.docker.com/v2/repositories/${{ VARS.DH_REPO }}/tags/ | jq '.results[0].name')
         echo $VERSION
         # if it's first build, set version to 1.0.0 (after incrementing by 0.0.1)
