@@ -36,7 +36,7 @@ jobs:
         # export to github env and create a tag for Docker image
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
-        echo "TAG=${TAG}" >> $GITHUB_OUTPUT
+        echo "TAG_V=${TAG}" >> $GITHUB_OUTPUT
         echo "TAG=${TAG}" >> $GITHUB_ENV
 
     - name: Login to DockerHub
@@ -59,4 +59,4 @@ jobs:
     steps:
     - name: Run the image
       run: |
-        docker run ${{ needs.maven_hw.outputs.TAG }}
+        docker run ${{ needs.maven_hw.outputs.TAG_V }}
