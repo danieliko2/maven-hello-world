@@ -60,5 +60,4 @@ jobs:
     steps:
     - name: Run the image
       run: |
-        echo ${{ needs.maven_hw.outputs.TAG }}
-        #docker run ${{ needs.maven_hw.outputs.TAG }}
+        docker run ${{ needs.maven_hw.outputs.TAG }}
