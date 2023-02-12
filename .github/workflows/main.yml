@@ -51,7 +51,7 @@ jobs:
 
     - name: Build image
       run: | 
-        docker build -t ${{ env.TAG }} --build-arg VERSION=${{ env.VERSION }}
+        docker build -t ${{ env.TAG }} --build-arg VERSION=${{ env.VERSION }} .
     
     - name: Upload to dockerhub
       run: docker push ${{ env.TAG }}
