@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     environment: hw_env
     outputs:
-      tag_output: ${{ steps.versioning.outputs.tag_output }}
+      ver_output: ${{ steps.versioning.outputs.ver_output }}
     steps:
     - name: Connect to Repo # Fetches the last commit from Github
       uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
         # export to github env and create a tag for Docker image
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
-        echo "tag_output=${TAG}" >> $GITHUB_OUTPUT
+        echo "ver_output=${VERSION}" >> $GITHUB_OUTPUT
         echo "TAG=${TAG}" >> $GITHUB_ENV
 
     - name: Login to DockerHub
@@ -59,4 +59,4 @@ jobs:
     steps:
     - name: Run the image
       run: |
-        docker run ${{ needs.maven_hw.outputs.tag_output }}
+        docker run "${{ VARS.DH_REPO }}:${{ needs.maven_hw.outputs.ver_output }}"
