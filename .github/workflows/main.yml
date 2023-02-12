@@ -48,13 +48,16 @@ jobs:
     
     - name: Upload to dockerhub
       run: docker push ${{ env.TAG }}
+      
     outputs:
       TAG: ${{ env.TAG }}
 
   run_mvn_hw: 
     runs-on: ubuntu-20.04
-    needs: [maven_hw]
+    needs: maven_hw
     environment: hw_env
     steps:
     - name: Run the image
-      run: docker run ${{ needs.maven_hw.outputs.TAG }}
+      run: |
+        echo ${{ needs.maven_hw.outputs.TAG }}
+        docker run ${{ needs.maven_hw.outputs.TAG }}
