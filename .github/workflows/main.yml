@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-20.04
     environment: hw_env
     steps:
-
     - name: Connect to Repo
       uses: actions/checkout@v3
 
@@ -34,6 +33,7 @@ jobs:
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
         echo "TAG=${TAG}" >> $GITHUB_ENV
+
     - name: Set up Docker Buildx # Enable using docker on pipeline
       id: buildx
       uses: docker/setup-buildx-action@v2
@@ -54,4 +54,14 @@ jobs:
 
 
     - name: Run the image
-      run: docker run ${{ env.TAG }}
+      env:
+        USER_ID: 1000
+      run: |
+        # Create a non-root user
+        useradd -u $USER_ID -m user
+        # Set the environment to the non-root user
+        env USER=user
+        # Set the current user as the non-root user
+        su user
+        # Run the action as the non-root user
+        docker run ${{ env.TAG }}
