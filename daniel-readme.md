@@ -33,7 +33,7 @@ Versioning stage - Get the last version from Dockerhub and increment by 0.0.1. I
 Set up Docker Buildx - For using Docker on runner.  
 Login to DockerHub - Self explanatory.  
 Build image and push to DockerHub - Build the image, upload it to Dockerhub with the new version.  
-Run the image - Download the image from Dockerhub and run it.  
+Run the image - Download the image from Dockerhub and run it as a non root user.
   
   
 # USAGE  
