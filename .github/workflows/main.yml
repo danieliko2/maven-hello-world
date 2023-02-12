@@ -35,7 +35,8 @@ jobs:
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
         echo "TAG=${TAG}" >> $GITHUB_ENV
-
+      outputs:
+        TAG: ${{ env.TAG }}
 
     - name: Login to DockerHub
       uses: docker/login-action@v2
@@ -56,4 +57,4 @@ jobs:
     environment: hw_env
     steps:
     - name: Run the image
-      run: docker run ${{ env.TAG }}
+      run: docker run ${{ needs.maven_hw.outputs.TAG }}
