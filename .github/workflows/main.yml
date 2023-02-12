@@ -19,7 +19,7 @@ jobs:
       with:
         username: ${{ secrets.DH_UN }}
         password: ${{ secrets.DH_AT }}
-        
+
     - name: Versioning stage
       run: |
         # get last version from Dockerhub
@@ -60,5 +60,4 @@ jobs:
 
 
     - name: Run the image
-      env:
       run: docker run ${{ env.TAG }}
