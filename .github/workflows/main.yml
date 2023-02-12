@@ -61,5 +61,4 @@ jobs:
       run: |
         sudo adduser --disabled-password --gecos "" myuser
         sudo su myuser
-        docker run alpine
-        # docker run ${{ env.TAG }}
+        docker run ${{ env.TAG }}
