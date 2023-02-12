@@ -9,8 +9,6 @@ jobs:
   maven_hw: 
     runs-on: ubuntu-20.04
     environment: hw_env
-    outputs:
-
     steps:
 
     - name: Connect to Repo # Fetches the last commit from Github
