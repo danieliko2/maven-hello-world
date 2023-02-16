@@ -37,7 +37,7 @@ jobs:
         echo "VERSION=${VERSION}" >> $GITHUB_ENV
         TAG="${{ VARS.DH_REPO }}:${VERSION}"
         echo "ver_output=${VERSION}" >> $GITHUB_OUTPUT
-        echo "TAG=${TAG}" >> $GITHUB_ENV
+        echo "TAG=${TAG}" >> $GITHUB_ENV 
 
     - name: Login to DockerHub
       uses: docker/login-action@v2
