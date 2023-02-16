@@ -15,8 +15,7 @@ Compiles the source code and packages it to a JAR artifact, using a Maven Docker
 Uploads the image to a Dockerhub repository.  
 Downloads and runs the Docker image.  
 A project design can be viewed here:  
-https://drive.google.com/file/d/1cKiLoo7VqYi2XDxwuULPg2FyYibs1qCW/  
-  
+https://drive.google.com/file/d/1drrruI26I5iRrWBOf9b0Fl7RaZKmj9Ii/  
 
 -- Dockerfile --  
 I used 2 base Docker images, inside a multistage Dockerfile:  
