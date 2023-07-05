@@ -27,7 +27,7 @@ All the commands are ran using a non-root user.
   
   
 -- GitHub Actions --  
-Made of 2 Jobs:
+Made of 2 Jobs:  
 Job 1:  
 Connect to repo - Get the last commit to runner's working directory.  
 Versioning stage - Get the last version from Dockerhub and increment by 0.0.1. If image does not exist (empty repo) set version to 1.0.0.  
