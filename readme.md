@@ -39,6 +39,9 @@ Upload to dockerhub - Upload the image with updated tag to dockerhub.
 Run the image - Download the image from Dockerhub and run it.
   
   
+![alt text](https://lh3.googleusercontent.com/drive-viewer/AFGJ81r-oeKXatnduVP3_oRbkd9WlJT3a7CWMGyWZuED_o-GfNWRqBMZBY_SGJmrzN4SELYVo7cHgh6FNf_5q5jjkF3cspEKug=s1600)
+  
+  
 # USAGE  
 Open a new public container repository on DockerHub.  
 Create an access key with read/write permissions on Dockerhub. Save it, we will use it later.  
